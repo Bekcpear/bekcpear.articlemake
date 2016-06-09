@@ -21,4 +21,10 @@ script:
     - git clone --depth 1 https://$GH_TOKEN@github.com/Bekcpear/bekcpear.github.io git
     - pwd
     - ls -a
+    - make all
     
+after_success:
+    - cd git
+    - git add -A .
+    - git commit -m "update from travis" 
+    - git push --quiet
