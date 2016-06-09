@@ -8,7 +8,7 @@ html: $(OBJECTS)
 pdf: $(OBJECTS_PDF)
 
 $(OBJECTS): %.html: %.md
-	pandoc $< -o $@
+	pandoc $< -o $@ && mv *.html git/
 
 $(OBJECTS_PDF): %.pdf: %.md
-	pandoc --template=./template.tex --latex-engine=xelatex  $< -o $@
+	pandoc --template=./template.tex --latex-engine=xelatex  $< -o $@ && mv *.pdf git/
