@@ -25,9 +25,10 @@ script:
     - make all
     - cd git
     - ls -a
+    - git config --global push.default matching
     - git add -A .
     - git commit -m "update from travis" 
     - git push --quiet
     
 after_success:
-    - echo "Welcome to my home page: https://bekcpear.io"
+    - echo 'Welcome to my home page: https://bekcpear.io'
