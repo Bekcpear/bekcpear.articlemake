@@ -1,14 +1,11 @@
-language: python
+language: ruby
 
-python:
-    - "2.7"
+rvm:
+    - 2.2
     
 cache:
   directories:
     - cache
-
-env:
-    - secure: "niPWK16rBKx8fWdTuKJTaDEIlA5+6UCPiUD4n5mdO0MNshRNT8T5xUURxQSaFyh0CaKmkEmVEM3RIMD/5LbXvTUUqLpAcFHuHg5ScX6D8wJ8zaJcByVfNWdOHDfb3tOUfekf5ookezLaoKncQZGU7ai5RGoP+dHcrJSgFqamGBHMeiaCEIMi324p7mbI8+A8UEU8vA1B1hyW3u1fAS9qYV/GqeThExNP1+A/ksUMV3HVNelr0aUWTaOQSFyd1T1/PN9W65IdvxeInBbPztPq9rVQncFc69sdmxmjFV0CRwpKC4suZmK7avBu4ibJoIPqZINryAlnE2BXRsNvr5SiVooptzdn/o3Pywehd4itBbPdoTRzAPVVKvGj75AJf+Oy5Gb4toGI+CdcqKATVyLh1eAAsNjPWzugTXSPyTawh5nGaLAzAfq5DllIbskHrqYgldRLFNsjbvjwVo89zdBbrJHhYAhyIO0z8iU2GC8q2mOxcNcniMA2CWuNpVDezTnX61591nbitDJiv0lNk2qe/OHo6SMmzL4PSoWLaQFlRJ+we36p8xZSqjdMpixv8eNL8RcQNuwfNdc3wDGDYgSSt2Qp8sOq1Xdu5thYP0NsTieJrrl+Vo9Dhz0gk+Etj/GkOXv6ipgpHFpmGyDTkrPmbR8QqrRBy0nqXaBK4ZrKbCg="
 
 before_install:
     - sudo add-apt-repository ppa:texlive-backports/ppa -y
@@ -22,13 +19,15 @@ install:
 script:
     - git config --global user.email "$GIT_EMAIL"
     - git config --global user.name "$GIT_NAME"
-    - git clone --depth 1 https://$GH_TOKEN@github.com/Bekcpear/bekcpear.github.io git
+    - git clone --depth 1 https://$GIT_TOKEN@github.com/Bekcpear/bekcpear.github.io git
     - pwd
     - ls -a
     - make all
-    
-after_success:
     - cd git
+    - ls -a
     - git add -A .
     - git commit -m "update from travis" 
     - git push --quiet
+    
+after_success:
+    - echo "Welcome to my home page: https://bekcpear.io"
