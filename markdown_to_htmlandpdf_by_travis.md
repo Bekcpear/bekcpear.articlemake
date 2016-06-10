@@ -33,7 +33,7 @@ sudo add-apt-repository ppa:texlive-backports/ppa
 sudo apt-get update
 sudo apt-get install texlive-xetex texlive-latex-extra
 ```
-默认情况下，转换中文时会出现不显示中文字体的情况，那是因为pandoc下的XeLaTeX模版没有默认设置中文，需要做如下的添加,[完整的模版](https://github.com/Bekcpear/bekcpear.articlemake/blob/master/template.tex)：
+默认情况下，转换中文时会出现不显示中文字体的情况，那是因为pandoc下的XeLaTeX模版没有默认设置中文，需要做如下的添加，[完整的模版](https://github.com/Bekcpear/bekcpear.articlemake/blob/master/template.tex)：
 ```
 \usepackage{fontspec}         % 允许设置字体
 \usepackage{xeCJK}            % 分别设置中英文
@@ -63,7 +63,7 @@ sudo apt-get install texlive-xetex texlive-latex-extra
 ```
 
 ##如何使用Makefile
-可以参考的一个说明是[这个](http://scc.qibebt.cas.cn/docs/linux/base/%B8%FA%CE%D2%D2%BB%C6%F0%D0%B4Makefile-%B3%C2%F0%A9.pdf)，用到了里面所写的静态模式、（自动化）变量和伪目标。
+可以参考的一个说明是[这个](https://iccce.co/s/0njSzyO9OGxp3Mq)，用到了里面所写的静态模式、（自动化）变量和伪目标。
 ```
 SOURCES := $(wildcard *.md)
 OBJECTS := $(patsubst %.md, %.html, $(wildcard *.md))
