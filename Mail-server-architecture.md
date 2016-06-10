@@ -1,3 +1,10 @@
+---
+title-meta: 以Postfix为例详解邮件服务器
+author-meta: Bekcpear
+subject-meta: Linux服务器
+keywords-meta: postfix, server
+createdate-meta: 2016-06-04
+---
 ## Postfix结构图解
 ```
                                                                                           MECHANISMS:
