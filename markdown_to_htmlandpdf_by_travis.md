@@ -128,3 +128,4 @@ after_success:
 + [如何在Linux下使用Markdown进行文档工作](http://www.ituring.com.cn/article/10044)
 + [LaTeX/Colors](https://en.wikibooks.org/wiki/LaTeX/Colors)
 + [Markdown语法中文](http://wowubuntu.com/markdown/)
++ [关于一个\tightlist的报错](https://segmentfault.com/q/1010000002974818)
