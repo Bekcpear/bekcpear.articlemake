@@ -30,8 +30,21 @@ Postfix下针对MTA的设置非常多，在构建结构图前，我会先把常�
 
 **MRA（Mail Retrieval Agent）**：这个其实是一个技术上的定义说明，并不指代特殊的一个组件，详细的可以看下述的说明图。
 
-##Postfix下常见的权限管理设置
-**mydestination**：定义的是可以被MDA分发到的主机，默认值是：`mydestination = $myhostname, localhost.$mydomain, localhost`。【未完】
+##Postfix下常见的设置
+关于Postfix的结构可以看看[这里](http://www.postfix.org/OVERVIEW.html)，看了这个结构说明就可以发现：Postfix可以实现MSA、MTA、MRA、MDA的功能，可以说一个Postfix就搞定了，所以关于Postfix的配置还是比较繁杂的，这边仅仅列举我知道的认为重要的，也是学习的一个手段。
+配置文件main.cf内常用的参数设置方式有4种：
+
+1. 单一值
+2. 通过逗号来分隔设定值
+3. 直接将参数放在文件里面后指向指定文件
+4. 通过type:table这样子的模式来设定值，详细的看[Postfix Lookup Table](http://www.postfix.org/DATABASE_README.html)。
+
+**mydomain**：这个定义的就是本服务器在互联网中属于哪一个域名，默认是myhostname值去掉由.分隔的第一个字符后的值，可以不设置。参数设置方法：1
+**myhostname**：这个比较重要，建议采用FQDN格式，比如：mail.bekcpear.io。参数设置方法：1
+**myorigin**：这个就是邮件发信地点了，比如在邮件头的mail from下显示。一般设置为myhostname即可，但是根据官方的文档来看，说如果一个域名下由多台邮件服务器，应该将这个值设置为域名，并做好别名数据库，分别指向不同用户，不是很懂，暂且忽略。
+**mydestination**：定义的是可以被MDA分发到的主机，默认值是：`mydestination = $myhostname, localhost.$mydomain, localhost`。针对目的地的用户名是在/etc/passwd和/etc/alias这两个文件下设置的，注意虚拟域名有其单独设置的地方，不要在这边设置；备用的MX记录也不是设置在这边的。参数设置方法：2/3/4
+**mynetworks**：这个很重要，是设置的信任网络，这个设置下的网络地址可以很轻松的通过这个邮件服务器来中转或者发送邮件，所以设置需要注意。设置了这个值之后，会导致mynetworks\_style的设置失效。所以关于mynetworks\_style的就不写了。参数设置方法：2/3/4
+**relay\_domains**：这个是用于判断邮件的目的域名非本服务器域名时是否属于本参数内，属于了才会对其进行转发，否则就会将有点丢弃。所以猜想是否个人使用的邮件服务器完全没有必要设置MX记录，那就可以不涉及本地邮件转发的问题了。详细的实际使用后更新本内容。参数设置方法：2/3/4
 
 ##传统Mail Server结构图解(结合Postfix设置)
 ```
