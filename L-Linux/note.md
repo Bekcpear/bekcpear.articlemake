@@ -1,3 +1,11 @@
+---
+title-meta: Linux Learning note
+author-meta: Bekcpear
+subject-meta: linux
+keywords-meta: 
+createdate-meta: 2016-07-27
+---
+
 ##文件与目录的默认权限与隐藏权限
 
 ###umask
