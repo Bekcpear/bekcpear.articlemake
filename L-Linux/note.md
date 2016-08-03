@@ -139,7 +139,7 @@ find是一个非常牛B的存在，但是效率一般。可以跟的参数很多
 ###文件的时间属性atime&ctime&mtime
 
 atime(access time) changed when file be accessed
-ctime(status time) changed when file's status has been changed, like permissons and parameters
+ctime(status time) changed when file's status has been changed, like permissons and parameters, but will also updated when modify file
 mtime(modification time) changed when file's content has been modified
 
 ```
