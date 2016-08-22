@@ -6,7 +6,7 @@ keywords-meta: zabbix
 createdate-meta: 2016-08-22
 ---
 
-开始学习如何使用Zabbix，从最基础的安装做起。CentOS上默认的Zabbix是默认Apache的，且版本较低，我比较追求新版本，明明白白安装软件的感觉，遂自行编译更加合适。
+> 开始学习如何使用Zabbix，从最基础的安装做起。CentOS上默认的Zabbix是默认Apache的，且版本较低，我比较追求新版本，明明白白安装软件的感觉，遂自行编译更加合适。
 
 ##准备工作
 + yum 安装的mysql（mariadb-server），这个不多说。
