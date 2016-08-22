@@ -108,10 +108,10 @@ fi
 ###Q：如何配置php并使之适合zabbix3.0.4？
 A：配置项目其实很少，如下：
 
-0. 复制启动文件 `/usr/local/src/php-7.0.10/sapi/fpm/php-fpm.service` 到 `/lib/systemd/system/php-fpm.service`，并修改里面的路径到程序主目录
-1. 新建用户php-fpm和组php-fpm
-2. 两个示例文件 `/usr/local/php/etc/php-fpm.conf.example` 和 `/usr/local/php/etc/php-fpm.d/www.conf.example`，去掉example字样
-3. 一些基本的修改不赘述了，应zabbix要求，需要在 `/usr/local/php/etc/php-fpm.d/www.conf` 结尾加入如下内容，之后就可以运行了：
+1. 复制启动文件 `/usr/local/src/php-7.0.10/sapi/fpm/php-fpm.service` 到 `/lib/systemd/system/php-fpm.service`，并修改里面的路径到程序主目录
+2. 新建用户php-fpm和组php-fpm
+3. 两个示例文件 `/usr/local/php/etc/php-fpm.conf.example` 和 `/usr/local/php/etc/php-fpm.d/www.conf.example`，去掉example字样
+4. 一些基本的修改不赘述了，应zabbix要求，需要在 `/usr/local/php/etc/php-fpm.d/www.conf` 结尾加入如下内容，之后就可以运行了：
 
 ```
 php_value[max_execution_time] = 300
@@ -180,8 +180,11 @@ server {
 其实可以参考[官方网站](https://www.zabbix.com/documentation/3.0/manual/installation/install#installation_from_sources)的内容，也很简单。
 
 整理了一下如下：
+
 ###1.下载[源码包](http://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.0.4/zabbix-3.0.4.tar.gz/download)，解压并进入。这个我没有找到校验文件...
+
 ###2.创建用户，一般就创建一个组为zabbix的zabbix用户即可，注意的是，当Zabbix的server和agent同时运行在一台主机上时，推荐是将server的运行用户独立于agent的运行用户的，不然agent可以访问server的配置文件，甚至数据库。
+
 ###3.创建数据库，这个在源码包里面有现成的脚本，一般这样子使用（针对我的Mysql数据库）：
 
 ```
@@ -195,7 +198,9 @@ shell> mysql -uzabbix -p<password> zabbix < schema.sql
 shell> mysql -uzabbix -p<password> zabbix < images.sql
 shell> mysql -uzabbix -p<password> zabbix < data.sql
 ```
+
 ###4.配置编译安装。配置选项 `--prefix=/usr/local/zabbix --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2`，这将安装上server和agent两个功能
+
 ###5.编辑Zabbix目录etc目录下的配置文件，因为我是在一台机器上同时运行服务器和代理的，所以两个配置文件都需要配置。这边贴出来的删除了大量没有配置的选项及其注释，但是对于已经配置的选项的注释并没有删除。
 
 ```
@@ -442,6 +447,7 @@ User=zabbix
 # zabbix_server
 # zabbix_agentd
 ```
+
 ###7.接下来就是安装 Zabbix 的 Web 接口了
 这个非常简单，把源码目录下的 `frontends/php` 这个目录整个拷贝到 nginx 配置的根目录下，然后网页访问后，根据提示配置即可。注意防火墙权限，注意复制过去后，将目录权限开放给 PHP 的用户，我这里是 php-fpm 这个用户。不然可能无法配置成功。
 
