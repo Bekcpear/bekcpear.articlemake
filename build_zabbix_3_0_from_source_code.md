@@ -14,6 +14,7 @@ createdate-meta: 2016-08-22
 
 ###Q：如何编译安装php7呢？
 A：难点在于编译选项和依赖关系，整理步骤如下：
+
 1. 下载[源码包](http://cn.php.net/distributions/php-7.0.10.tar.xz)到`/usr/local/src`目录下，解压后进入安装目录。（sha256sum：348476ff7ba8d95a1e28e1059430c10470c5f8110f6d9133d30153dda4cdf56a）
 2. 使用yum安装epel-release
 3. 编译安装我写了一个脚本如下（php-fpm）：
@@ -105,6 +106,7 @@ fi
 
 ###Q：如何配置php并使之适合zabbix3.0.4？
 A：配置项目其实很少，如下：
+
 0. 复制启动文件 `/usr/local/src/php-7.0.10/sapi/fpm/php-fpm.service` 到 `/lib/systemd/system/php-fpm.service`，并修改里面的路径到程序主目录
 1. 新建用户php-fpm和组php-fpm
 2. 两个示例文件 `/usr/local/php/etc/php-fpm.conf.example` 和 `/usr/local/php/etc/php-fpm.d/www.conf.example`，去掉example字样
@@ -117,6 +119,7 @@ php_value[date.timezone] = "Asia/Shanghai"
 
 ###Q：如何编译安装nginx1.10stable？
 A：这个相对来说就很简单了，如下：
+
 1. 下载[源码包](http://nginx.org/download/nginx-1.10.1.tar.gz)并解压。关于校验，官网有[pgp文件](http://nginx.org/download/nginx-1.10.1.tar.gz.asc)，公钥用[这个](http://nginx.org/keys/mdounin.key)。
 2. 进入源码目录下编译，可能需要解决写依赖关系：
 ```
@@ -134,6 +137,7 @@ CUS_CONF="\
 
 ###Q：如何配置启动nginx？
 A：依旧是nginx配置文件 + systemd启动服务文件。
+
 1. 启动服务文件可以从[nginx.com](https://www.nginx.com/resources/wiki/start/topics/examples/systemd/)上复制：
 2. 配置文件在 `/usr/local/nginx/conf/nginx.conf`，安装需求修改，比如针对Zabbix的一段内容，之后就可以启动nginx了：
 ```
@@ -435,6 +439,7 @@ User=zabbix
 这个非常简单，把源码目录下的 `frontends/php` 这个目录整个拷贝到 nginx 配置的根目录下，然后网页访问后，根据提示配置即可。注意防火墙权限，注意复制过去后，将目录权限开放给 PHP 的用户，我这里是 php-fpm 这个用户。不然可能无法配置成功。
 
 ##配置安装时候遇到的几个问题。
+
 + "configure: error: MySQL library not found"，这个是因为没有安装 mariadb-devel 导致的。
 + "configure: error: Invalid NET-SNMP directory - unable to find net-snmp-config"，这个是因为没有安装 net-snmp net-snmp-devel 导致的。
 + 配置到数据库的时候，出现"Error connecting to database: No such file or directory"，最后发现是因为 mysqli 下使用 localhost 作为地址连接 mysql 数据库的问题，真奇怪，改成 127.0.0.1 就好了...
