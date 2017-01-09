@@ -6,7 +6,7 @@ keywords-meta: IPv6,DNS 污染
 createdate-meta: 2017-01-09
 ---
 
-这篇文章要说的，是通过路由器设置 IPv6 地址来访问 IPv4 所无法访问的网站（其实这个方法应该很早以前就可以使用了，不过无所谓啦）。目前 GFW 是没有针对 IPv6 有很好的限制手段（以后的话以后再说吧），只是针对 IPv6 的 DNS 解析污染是很严重的（ IPv4 的 DNS 污染更严重，不过就算没污染也无法访问就不去考虑啦）。
+这篇文章要说的，是通过路由器设置 IPv6 地址来访问 IPv4 所无法访问的网站（主要是记录一下本次折腾过程以后可能有用，其实这个方法应该很早以前就可以使用了，不过无所谓啦）。目前 GFW 是没有针对 IPv6 有很好的限制手段（以后的话以后再说吧），只是针对 IPv6 的 DNS 解析污染是很严重的（ IPv4 的 DNS 污染更严重，不过就算没污染也无法访问就不去考虑啦）。
 
 ##两个前提条件：
 
@@ -17,7 +17,7 @@ createdate-meta: 2017-01-09
 
 我的路由器是 网件的 R6250 和 华硕的 AC55U （掩面，都是渣渣，不过能用）。 R6250 是用于做外网网关的， AC55U 是相当于做 AP 的（因为 R6250 刷了 OpenWRT 后无线信号渣成翔啊有木有）。关于如何给 R6250 刷 OpenWRT 就不说了，资料一查一大堆（其他也一样，主要是讲原理）。
 
-##去 tunnelbroker.net 申请一个 IPv6 地址
+##去 [tunnelbroker.net](https://tunnelbroker.net/) 申请一个 IPv6 地址
 
 虽然部分地区已经有运营商分 IPv6 了，但国内大部分还是就电信有 IPv6 ，而且渣的像X一样，完全没法用，分到的应该也就一个 /64 的地址，就只能用于一台设备，如果需要用于给多台设备分 IPv6 ，还需要更复杂的设置。（其他运营商的 IPv6 还没有用到过，当然教育网的 IPv6 非常好）
 
@@ -26,6 +26,7 @@ createdate-meta: 2017-01-09
 HE 公司的 tunnelbroker.net 上一个账户可以申请最多5个 IPv6 地址，使用原理是把 IPv6 封包再封成为 IPv4 封包，通过 IPv4 网络发送到 HE 提供的服务端解包后去访问世界上的 IPv6 网络。
 
 除了这个还有国内的比如 6plat 、 6box 这样子的服务，前者申请麻烦还要提供身份证，且需要先设置 DDNS ，后者有点贵，所以我不考虑了。
+
 还有一种是可以使用清大 ISATAP 隧道，但是这个基于一个公网 IP 只能分一个 /64 地址，且会根据公网 IPv4 地址不同而变化，可以看如下几篇文章：
 
 + [关于如何在 nat 后面使用 isatap](https://wiki.tuna.tsinghua.edu.cn/IsatapBehindNat)
@@ -62,14 +63,14 @@ root# uci set network.henet=interface                         # 从这里开始�
 root# uci set network.henet.proto=6in4
 root# uci set network.henet.peeraddr=216.x.x.x
 root# uci set network.henet.ip6addr='2001:470:x8:xxxx::2/64'
-root# uci set network.henet.ip6prefix='2001:470:fxxx::/48' # 这个就是我上面有解释的 Routed /64 ，注意：就算请求生成了 Routed /48 也不会在这边显示，但是你替换一下就好了
+root# uci set network.henet.ip6prefix='2001:470:fxxx::/48'    # 这个就是我上面有解释的 Routed /64 ，注意：就算请求生成了 Routed /48 也不会在这边显示，但是你替换一下就好了
 root# uci set network.henet.tunnelid=xxxxxx
 root# uci set network.henet.username=xxxxxx
 root# uci set network.henet.password='UPDATE_KEY_OR_PASSWORD' # 这边需要输入你的更新密码，在 'Advanced' 标签下有个 'Update Key' 。如果你的公网 IPv4 地址是动态的，OpenWRT 已经有内置了更新的脚本，也是通过这个密码来更新的
 root# uci set network.henet.defaultroute='0'                  # 这个设置在 tunnelbroker 上是没有写的，但是我建议设置一下，不然之后的路由会有问题（至少我这里是这样子的）
 root# uci commit network                                      # 提交修改
 
-root# uci set firewall.@zone[1].network='wan henet'           # 下面的是通用的设置和重启服务，不解释了
+root# uci set firewall.@zone[1].network='wan henet'           # 下面的是通用的设置和重启服务
 root# uci commit firewall
 
 root# /etc/init.d/network restart
