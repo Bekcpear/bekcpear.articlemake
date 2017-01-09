@@ -53,7 +53,7 @@ tunnelbroker.net 对应页面有更详细的解释，可以自己去看。
 
 我这里已经被分配到电信的 IPv6 地址了，但正如我上面所说，渣成X，所以可以在 OpenWRT 的设置界面上取消获取 IPv6 （不多解释如何操作了，不取消也没关系）。
 
-在 Tunnelbroker 创建好了 IPv6 后 'Example Configurations' 标签页有很多系统下的配置例子，非常方便， OpenWRT 选择'OpenWRT Barrier Breaker' 这个的配置比较合适，我贴在下面来说明：
+在 Tunnelbroker 创建好了 IPv6 后 'Example Configurations' 标签页有很多系统下的配置例子，非常方便， OpenWRT 选择 'OpenWRT Barrier Breaker' 这个的配置比较合适，我贴在下面来说明：
 
 ```
 root# opkg update                                             # 如果重启了系统后没有更新过这个软件库的话一定要先更新一下，不然会搜索不到
