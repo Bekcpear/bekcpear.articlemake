@@ -31,7 +31,7 @@ Postfix下针对MTA的设置非常多，在构建结构图前，我会先把常�
 **MRA（Mail Retrieval Agent）**：这个其实是一个技术上的定义说明，并不指代特殊的一个组件，详细的可以看下述的说明图。
 
 ##Postfix下常见的设置
-关于Postfix的结构可以看看[这里](http://www.postfix.org/OVERVIEW.html)，看了这个结构说明就可以发现：Postfix可以实现MSA、MTA、MRA、MDA的功能，可以说一个Postfix就搞定了，所以关于Postfix的配置还是比较繁杂的，这边仅仅列举我知道的认为重要的，也是学习的一个手段。
+关于Postfix的结构可以看看[这里](http://www.postfix.org/OVERVIEW.html)，看了这个结构说明就可以发现：Postfix可以实现MSA、MTA、MRA、MDA的功能，可以说一个Postfix就搞定了，关于Postfix main.cf下的配置有几百种，这边仅仅列举重要的，也是学习的一个手段。
 配置文件main.cf内常用的参数设置方式有4种：
 
 1. 单一值
