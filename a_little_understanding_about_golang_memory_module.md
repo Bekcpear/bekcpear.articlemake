@@ -3,7 +3,7 @@ title-meta: 关于 Golang 内存模型
 author-meta: Bekcpear
 subject-meta: Golang
 keywords-meta: golang, reference, channel
-createdate-meta: 2016-06-10
+createdate-meta: 2017-02-19
 ---
 
 最近开始学习 Go 语言，在看到其[内存模型](https://golang.org/ref/mem)的时候一度懵逼了，主要是碰到关于信道的其中两句概念整理以为冲突了，先整理自己的理解如下。
